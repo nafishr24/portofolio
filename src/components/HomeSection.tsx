@@ -151,7 +151,7 @@ useEffect(() => {
                 <img
                   src={`${import.meta.env.BASE_URL}images/p2.png`}
                   alt="Profile"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover animate-pulse"
                 />
               </div>
             </div>
