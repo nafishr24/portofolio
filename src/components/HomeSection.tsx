@@ -149,7 +149,7 @@ useEffect(() => {
             <div className="relative">
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-xl ring-1 ring-white/30">
                 <img
-                  src={`${process.env.PUBLIC_URL}/images/p2.png`}
+                  src="/images/p2.png"
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
