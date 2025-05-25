@@ -86,7 +86,7 @@ const ResumeSection = () => {
   const TimelineItem = ({ item, icon: Icon, isLast }: any) => (
     <div className="relative">
       <div className="flex items-center mb-4" data-animate>
-        <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+        <div className="flex-shrink-0 w-10 h-10 !bg-blue-600 rounded-full flex items-center justify-center">
           <Icon className="w-5 h-5 text-white" />
         </div>
         <div className="ml-4 flex-1">

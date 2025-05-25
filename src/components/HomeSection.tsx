@@ -86,7 +86,7 @@ useEffect(() => {
                   <Typewriter
                     words={[
                       'Math Tutor',
-                      'Web Development',
+                      'Web Developer',
                       'Data Scientist'
                     ]}
                     loop={Infinity}
