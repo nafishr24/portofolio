@@ -6,6 +6,10 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   base: "/portofolio/",
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets', // Folder untuk assets (CSS/JS)
+  },
   server: {
     host: "::",
     port: 8080,
