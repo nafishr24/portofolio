@@ -86,7 +86,7 @@ const ResumeSection = () => {
   const TimelineItem = ({ item, icon: Icon, isLast }: any) => (
     <div className="relative">
       <div className="flex items-center mb-4" data-animate>
-        <div className="flex-shrink-0 w-10 h-10 !bg-blue-600 rounded-full flex items-center justify-center">
+        <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center">
           <Icon className="w-5 h-5 text-white" />
         </div>
         <div className="ml-4 flex-1">
@@ -115,7 +115,7 @@ const ResumeSection = () => {
     <section 
       id="resume" 
       ref={sectionRef}
-      className="py-20 bg-gray-50 backdrop-blur-sm scroll-mt-16"
+      className="py-20 !bg-blue-600 backdrop-blur-sm scroll-mt-16"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
