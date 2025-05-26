@@ -1,7 +1,17 @@
 import { GraduationCap, Briefcase, Calendar } from "lucide-react";
 import React, { useEffect, useRef } from "react";
 
+// Debounce helper function
+function debounce(func: (...args: any[]) => void, wait: number) {
+  let timeout: NodeJS.Timeout;
+  return (...args: any[]) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
 const ResumeSection = () => {
+  // Education data
   const education = [
     {
       degree: "Master of Computer Science",
@@ -17,6 +27,7 @@ const ResumeSection = () => {
     }
   ];
 
+  // Experience data
   const experience = [
     {
       position: "Senior Full Stack Developer",
@@ -44,49 +55,85 @@ const ResumeSection = () => {
     }
   ];
 
-  const sectionRef = useRef<HTMLElement>(null);
-  const animationDelay = 200; // 0.2 second delay
+  // Refs for animation control
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const animationDelay = 200;
   const animationElements = useRef<HTMLElement[]>([]);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
 
-    animationElements.current = Array.from(
-      sectionRef.current.querySelectorAll('[data-animate]')
-    ) as HTMLElement[];
-
-    animationElements.current.forEach((el) => {
-      el.classList.add('opacity-0');
-    });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            const index = animationElements.current.indexOf(el);
-            setTimeout(() => {
-              el.classList.remove('opacity-0');
-              el.classList.add('animate-fade-slide-up');
-            }, index * animationDelay);
-            observer.unobserve(el);
-          }
+      // Initialize elements on first run
+      if (animationElements.current.length === 0) {
+        animationElements.current = Array.from(
+          sectionRef.current.querySelectorAll('[data-animate]')
+        ) as HTMLElement[];
+        
+        // Set initial hidden state
+        animationElements.current.forEach(el => {
+          el.classList.add('opacity-0');
         });
-      },
-      { threshold: 0.1 }
-    );
+      }
 
-    animationElements.current.forEach((el) => observer.observe(el));
+      const viewportHeight = window.innerHeight;
+      const triggerPoint = viewportHeight * 0.1; // 10% buffer
+      const sectionRect = sectionRef.current.getBoundingClientRect();
 
-    return () => observer.disconnect();
+      // Check if section is entering viewport
+      const isSectionVisible = 
+        sectionRect.top < viewportHeight - triggerPoint && 
+        sectionRect.bottom > triggerPoint;
+
+      // Only trigger if section is visible and hasn't animated yet
+      if (isSectionVisible && !hasAnimated.current) {
+        animationElements.current.forEach((el, index) => {
+          setTimeout(() => {
+            el.classList.remove('opacity-0');
+            el.classList.add('animate-fade-slide-up');
+          }, index * animationDelay);
+        });
+        hasAnimated.current = true;
+      } 
+      // Reset when section completely leaves viewport
+      else if (sectionRect.bottom < 0 || sectionRect.top > viewportHeight) {
+        hasAnimated.current = false;
+        animationElements.current.forEach(el => {
+          el.classList.remove('animate-fade-slide-up');
+          el.classList.add('opacity-0');
+        });
+      }
+    };
+
+    // Add scroll listener with debounce
+    const debouncedScroll = debounce(handleScroll, 50);
+    window.addEventListener('scroll', debouncedScroll);
+    
+    // Trigger initial check
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', debouncedScroll);
   }, []);
 
-
-
-  const TimelineItem = ({ item, icon: Icon, isLast }: any) => (
+  // TimelineItem component
+  const TimelineItem = ({ item, icon: Icon, isLast }: {
+    item: any;
+    icon: React.ComponentType<{ className?: string }>;
+    isLast: boolean;
+  }) => (
     <div className="relative">
+      {/* Garis vertikal - dipindahkan ke atas dan ditambahkan z-index */}
+      {!isLast && (
+        <div 
+          className="absolute left-5 top-10 w-0.5 h-full bg-black -z-10" 
+          data-animate
+          style={{ zIndex: -1 }}
+        ></div>
+      )}
+
       <div className="flex items-center mb-4" data-animate>
-        <div className="flex-shrink-0 w-10 h-10 !bg-blue-600 rounded-full flex items-center justify-center">
+        <div className="flex-shrink-0 w-10 h-10 !bg-blue-600 rounded-full flex items-center justify-center z-10">
           <Icon className="w-5 h-5 text-white" />
         </div>
         <div className="ml-4 flex-1">
@@ -105,9 +152,6 @@ const ResumeSection = () => {
       <div className="ml-14 pb-8" data-animate>
         <p className="text-gray-700">{item.description}</p>
       </div>
-      {!isLast && (
-        <div className="absolute left-5 top-10 w-0.5 h-full bg-gray-200" data-animate></div>
-      )}
     </div>
   );
 
@@ -132,7 +176,7 @@ const ResumeSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Education */}
+          {/* Education Column */}
           <div>
             <h3 
               data-animate
@@ -144,7 +188,7 @@ const ResumeSection = () => {
             <div className="space-y-8">
               {education.map((edu, index) => (
                 <TimelineItem
-                  key={index}
+                  key={`edu-${index}`}
                   item={edu}
                   icon={GraduationCap}
                   isLast={index === education.length - 1}
@@ -153,7 +197,7 @@ const ResumeSection = () => {
             </div>
           </div>
 
-          {/* Experience */}
+          {/* Experience Column */}
           <div>
             <h3 
               data-animate
@@ -165,7 +209,7 @@ const ResumeSection = () => {
             <div className="space-y-8">
               {experience.map((exp, index) => (
                 <TimelineItem
-                  key={index}
+                  key={`exp-${index}`}
                   item={exp}
                   icon={Briefcase}
                   isLast={index === experience.length - 1}

@@ -3,68 +3,86 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { Typewriter } from 'react-simple-typewriter';
 import { Button } from "@/components/ui/button";
 
+// Debounce helper function
+function debounce(func: (...args: any[]) => void, wait: number) {
+  let timeout: NodeJS.Timeout;
+  return (...args: any[]) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
 const HomeSection = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const elementsRef = useRef<HTMLElement[]>([]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const animationElements = useRef<HTMLElement[]>([]);
   const hasAnimated = useRef(false);
-  const animationDelay = 300;
+  const animationDelay = 200;
 
-useEffect(() => {
-  const animateElements = () => {
-    if (!sectionRef.current || hasAnimated.current) return;
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
 
-    const { top, bottom } = sectionRef.current.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    const threshold = viewportHeight * 0.1;
+      // Initialize elements on first run
+      if (animationElements.current.length === 0) {
+        animationElements.current = Array.from(
+          sectionRef.current.querySelectorAll('[data-animate]')
+        ) as HTMLElement[];
+        
+        // Set initial state
+        animationElements.current.forEach(el => {
+          el.classList.add('opacity-0');
+        });
+      }
 
-    const isInViewport = top < viewportHeight - threshold && bottom > threshold;
+      const viewportHeight = window.innerHeight;
+      const triggerPoint = viewportHeight * 0.1; // 10% buffer
+      const sectionRect = sectionRef.current.getBoundingClientRect();
 
-    if (isInViewport) {
-      hasAnimated.current = true;
+      // Check if section is entering viewport
+      const isSectionVisible = 
+        sectionRect.top < viewportHeight - triggerPoint && 
+        sectionRect.bottom > triggerPoint;
 
-      elementsRef.current.forEach((el, index) => {
-        el.style.animation = 'none';
-        void el.offsetWidth;
+      // Only trigger if section is visible and hasn't animated yet
+      if (isSectionVisible && !hasAnimated.current) {
+        animationElements.current.forEach((el, index) => {
+          setTimeout(() => {
+            el.classList.remove('opacity-0');
+            el.classList.add('animate-fade-slide-up');
+          }, index * animationDelay);
+        });
+        hasAnimated.current = true;
+      } 
+      // Reset when section completely leaves viewport
+      else if (sectionRect.bottom < 0 || sectionRect.top > viewportHeight) {
+        hasAnimated.current = false;
+        animationElements.current.forEach(el => {
+          el.classList.remove('animate-fade-slide-up');
+          el.classList.add('opacity-0');
+        });
+      }
+    };
 
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.animation = `staggerFadeUp 0.6s ease-out forwards`;
-          el.style.animationDelay = `${index * animationDelay}ms`;
-        }, 0);
-      });
-    }
-  };
-
-  if (sectionRef.current) {
-    elementsRef.current = Array.from(
-      sectionRef.current.querySelectorAll('[data-animate]')
-    ) as HTMLElement[];
-
-    elementsRef.current.forEach(el => {
-      el.style.opacity = '0';
-    });
-  }
-
-  // Jalankan animasi setelah sedikit delay saat mount
-  setTimeout(() => {
-    animateElements();
-  }, 200);
-
-  window.addEventListener('scroll', animateElements, { passive: true });
-  return () => window.removeEventListener('scroll', animateElements);
-}, []);
-
+    // Add scroll listener with debounce
+    const debouncedScroll = debounce(handleScroll, 50);
+    window.addEventListener('scroll', debouncedScroll);
+    
+    // Trigger initial check
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', debouncedScroll);
+  }, []);
 
   return (
     <section 
       id="home" 
       ref={sectionRef}
-      className="min-h-screen flex items-center pt-16"
+      className="min-h-screen flex items-center pt-16 scroll-mt-16"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* Konten - Kiri di desktop */}
+          {/* Left Content */}
           <div className="order-2 lg:order-1">
             <div className="space-y-6">
               <h1 
@@ -72,7 +90,7 @@ useEffect(() => {
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900"
               >
                 Hello, I'm{" "}
-                <span className="font-bold text-blue-600">
+                <span className="font-bold text-[#0e1079]">
                     Moh. Nafis Husen R.
                 </span>
               </h1>
@@ -103,11 +121,10 @@ useEffect(() => {
                 data-animate
                 className="text-lg text-gray-700 leading-relaxed"
               >
-                Welcome to my portfolio! I'm passionate about creating beautiful, 
-                functional web applications that solve real-world problems.
+                Welcome to my portfolio! Empowering learning through mathematics, building solutions through code, and uncovering insights through data.
               </p>
 
-              {/* Konten yang bisa diperluas */}
+              {/* Expandable Content */}
               <div 
                 data-animate
                 className={`overflow-hidden transition-all duration-500 ${
@@ -116,7 +133,7 @@ useEffect(() => {
               >
                 <div className="space-y-4 pt-4">
                   <p className="text-gray-700">
-                    With over 5 years of experience in web development...
+                    With years of experience in teaching mathematics, I've helped students not only improve their academic performance but also build confidence in logical thinking and problem-solving. As a web developer, I design and build clean, responsive, and user-friendly web applications tailored to real-world needs — from small business websites to dynamic, data-driven platforms. As a data scientist, I transform raw data into meaningful insights through statistical analysis, machine learning, and data visualization — enabling smarter decisions and impactful results. My work is driven by curiosity, creativity, and a strong desire to bridge the gap between technology and human understanding.
                   </p>
                 </div>
               </div>
@@ -141,7 +158,7 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Foto Profil - Kanan di desktop */}
+          {/* Right Content - Profile Picture */}
           <div 
             data-animate
             className="order-1 lg:order-2 flex justify-center"
@@ -151,7 +168,7 @@ useEffect(() => {
                 <img
                   src={`${import.meta.env.BASE_URL}images/p2.png`}
                   alt="Profile"
-                  className="w-full h-full object-cover animate-pulse"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
@@ -159,9 +176,9 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* Style untuk animasi */}
+      {/* Add these styles to your global CSS or Tailwind config */}
       <style jsx global>{`
-        @keyframes staggerFadeUp {
+        @keyframes fadeSlideUp {
           from {
             opacity: 0;
             transform: translateY(20px);
@@ -170,6 +187,12 @@ useEffect(() => {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        .animate-fade-slide-up {
+          animation: fadeSlideUp 0.6s ease-out forwards;
+        }
+        .opacity-0 {
+          opacity: 0;
         }
       `}</style>
     </section>

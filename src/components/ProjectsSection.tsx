@@ -14,12 +14,24 @@ interface Project {
   category: "Data Science" | "Web Development";
 }
 
+// Debounce helper function
+function debounce(func: (...args: any[]) => void, wait: number) {
+  let timeout: NodeJS.Timeout;
+  return (...args: any[]) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
 const ProjectsSection = () => {
   const [currentProject, setCurrentProject] = useState(0);
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("All");
-  const sectionRef = useRef<HTMLElement>(null);
-  const animationDelay = 200; // 0.2 second delay between animations
+  
+  // Refs for animation control
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const animationDelay = 200;
   const animationElements = useRef<HTMLElement[]>([]);
+  const hasAnimated = useRef(false);
 
   // Scroll animation handler
   useEffect(() => {
@@ -31,78 +43,98 @@ const ProjectsSection = () => {
         animationElements.current = Array.from(
           sectionRef.current.querySelectorAll('[data-animate]')
         ) as HTMLElement[];
+        
+        // Set initial hidden state
+        animationElements.current.forEach(el => {
+          el.classList.add('opacity-0');
+        });
       }
 
       const viewportHeight = window.innerHeight;
-      const triggerPoint = viewportHeight * 0.05; // 5% of viewport
+      const triggerPoint = viewportHeight * 0.1; // 10% buffer
+      const sectionRect = sectionRef.current.getBoundingClientRect();
 
-      animationElements.current.forEach((el, index) => {
-        const rect = el.getBoundingClientRect();
-        const elementTop = rect.top;
-        const elementVisible = triggerPoint;
+      // Check if section is visible in viewport
+      const isSectionVisible = 
+        sectionRect.top < viewportHeight - triggerPoint && 
+        sectionRect.bottom > triggerPoint;
 
-        if (elementTop < viewportHeight - elementVisible) {
+      // Only trigger if section is visible and hasn't animated yet
+      if (isSectionVisible && !hasAnimated.current) {
+        animationElements.current.forEach((el, index) => {
           setTimeout(() => {
+            el.classList.remove('opacity-0');
             el.classList.add('animate-fade-slide-up');
           }, index * animationDelay);
-        }
-      });
+        });
+        hasAnimated.current = true;
+      } 
+      // Reset when section completely leaves viewport
+      else if (sectionRect.bottom < 0 || sectionRect.top > viewportHeight) {
+        hasAnimated.current = false;
+        animationElements.current.forEach(el => {
+          el.classList.remove('animate-fade-slide-up');
+          el.classList.add('opacity-0');
+        });
+      }
     };
 
-    // Run once on mount
+    // Add scroll listener with debounce
+    const debouncedScroll = debounce(handleScroll, 50);
+    window.addEventListener('scroll', debouncedScroll);
+    
+    // Trigger initial check
     handleScroll();
     
-    // Add scroll event listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', debouncedScroll);
   }, []);
 
   const allProjects: Project[] = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&h=600&fit=crop",
-      description: "A full-featured e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, payment integration, inventory management, and responsive design. The platform handles thousands of users and processes hundreds of orders daily.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "JWT"],
+      title: "Birthday Card",
+      image: "images/hbd.png",
+      description: "A full-featured e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, payment integration, inventory management, and responsive design.",
+      technologies: ["HTML5", "CSS", "JavaScript"],
       category: "Web Development"
     },
     {
       id: 2,
       title: "Task Management App",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=800&h=600&fit=crop",
-      description: "A collaborative task management application similar to Trello. Built with Vue.js and Firebase, it features real-time updates, drag-and-drop functionality, team collaboration tools, and project analytics. Used by over 500 teams worldwide.",
+      image: "images/hbd.png",
+      description: "A collaborative task management application similar to Trello. Built with Vue.js and Firebase, it features real-time updates, drag-and-drop functionality, and team collaboration tools.",
       technologies: ["Vue.js", "Firebase", "Vuex", "CSS3", "JavaScript"],
       category: "Web Development"
     },
     {
       id: 3,
       title: "Weather Dashboard",
-      image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?q=80&w=800&h=600&fit=crop",
-      description: "A beautiful weather dashboard that provides detailed weather information and forecasts. Built with React and integrates with multiple weather APIs. Features include location-based weather, 7-day forecasts, and interactive maps with weather overlays.",
+      image: "images/hbd.png",
+      description: "A weather dashboard that provides detailed weather information and forecasts. Built with React and integrates with multiple weather APIs.",
       technologies: ["React", "API Integration", "Chart.js", "Geolocation"],
       category: "Web Development"
     },
     {
       id: 4,
       title: "Social Media Analytics",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&h=600&fit=crop",
-      description: "A comprehensive social media analytics platform that tracks engagement across multiple platforms. Built with Python Django and React, it provides detailed insights, automated reporting, and performance predictions using machine learning algorithms.",
+      image: "images/hbd.png",
+      description: "A social media analytics platform that tracks engagement across multiple platforms. Provides detailed insights and automated reporting.",
       technologies: ["Django", "React", "PostgreSQL", "ML", "D3.js"],
       category: "Data Science"
     },
     {
       id: 5,
       title: "Customer Churn Prediction",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&h=600&fit=crop",
-      description: "A machine learning model that predicts customer churn for subscription-based businesses. Built with Python, scikit-learn, and TensorFlow, it analyzes customer behavior patterns and provides actionable insights to reduce churn rates.",
+      image: "images/hbd.png",
+      description: "A machine learning model that predicts customer churn for subscription-based businesses. Analyzes customer behavior patterns.",
       technologies: ["Python", "scikit-learn", "TensorFlow", "Pandas", "Matplotlib"],
       category: "Data Science"
     },
     {
       id: 6,
       title: "Sales Forecasting Dashboard",
-      image: "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=800&h=600&fit=crop",
-      description: "An interactive dashboard for sales forecasting using time series analysis. Built with Python, Streamlit, and Prophet, it helps businesses predict future sales trends and make data-driven decisions.",
+      image: "images/hbd.png",
+      description: "An interactive dashboard for sales forecasting using time series analysis. Helps businesses predict future sales trends.",
       technologies: ["Python", "Streamlit", "Prophet", "Plotly", "SQL"],
       category: "Data Science"
     }
@@ -161,7 +193,7 @@ const ProjectsSection = () => {
                 variant="ghost"
                 className={
                   activeCategory === category
-                    ? "bg-blue-600 hover:bg-blue-700 !text-white font-bold"
+                    ? "bg-[#072664] hover:bg-blue-700 !text-white font-bold"
                     : "bg-transparent hover:bg-gray-100 text-gray-800 border border-gray-300 font-bold"
                 }
               >
@@ -181,7 +213,7 @@ const ProjectsSection = () => {
             >
               <div className="relative overflow-hidden rounded-xl shadow-xl bg-white">
                 <img
-                  src={current.image}
+                  src={`${import.meta.env.BASE_URL}${current.image}`}
                   alt={current.title}
                   className="w-full h-64 md:h-80 object-cover transition-all duration-500 ease-in-out group-hover:scale-105"
                 />
@@ -228,7 +260,7 @@ const ProjectsSection = () => {
                           }}
                           className={`transition-all ${
                             index === currentProject 
-                              ? 'h-1.5 w-6 bg-white rounded-sm'
+                              ? 'h-1.5 w-6 bg-white rounded-sm '
                               : 'h-1.5 w-1.5 bg-white/50 hover:bg-white/80 rounded-full'
                           }`}
                         />
