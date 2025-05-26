@@ -1,5 +1,5 @@
 import { GraduationCap, Briefcase, Calendar } from "lucide-react";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Debounce helper function
 function debounce(func: (...args: any[]) => void, wait: number) {
@@ -11,47 +11,52 @@ function debounce(func: (...args: any[]) => void, wait: number) {
 }
 
 const ResumeSection = () => {
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+
+  const toggleExpand = (id: string) => {
+    setExpandedItems(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
   // Education data
   const education = [
     {
-      degree: "Master of Computer Science",
-      school: "Stanford University",
-      period: "2018 - 2020",
-      description: "Specialized in Machine Learning and Software Engineering. Graduated Magna Cum Laude."
+      id: "edu-1",
+      degree: "Pre-service Teacher Education (PPG Prajabatan) Program",
+      school: "Widya Mandala Surabaya Catholic University",
+      period: "Januari 2024 - December 2024",
+      description: "I have actively coordinated the implementation of a community service program at SMP Kristen YBPK 4 Surabaya, focusing on empowering the educational community. In addition, I successfully led a team in organizing the Gelar Karya event at Widya Mandala Catholic University Surabaya, overseeing all aspects from strategic planning to execution. Collaborating with mathematics teachers at SMPN 37 Surabaya, I conducted research on computational thinking and developed effective strategies to enhance students' skills in this area. Furthermore, I have authored and published three scientific papers in nationally accredited journals, contributing to the advancement of knowledge and educational practices."
     },
     {
-      degree: "Bachelor of Computer Science",
-      school: "University of California, Berkeley",
-      period: "2014 - 2018",
-      description: "Focus on Web Development and Database Systems. Dean's List for 4 consecutive semesters."
+      id: "edu-2",
+      degree: "Bachelor of Mathematics Education",
+      school: "Madura University",
+      period: "SEPTEMBER 2019 – AUGUST 2023",
+      description: "During my academic journey, I actively participated in a student organization, contributing to the planning and execution of strategic work programs. I developed an automation system for the Madura Mathematics Olympiad, streamlining processes from registration to assessment and significantly improving time efficiency. To ensure the system's effective utilization, I conducted training sessions for student organization members, which resulted in a 60% increase in their technical skills. Additionally, I contributed to the preparation of accreditation documents for the study program, which successfully achieved a 'Very Good' accreditation status. My commitment to academic excellence is also reflected in my authorship and publication of research findings in nationally accredited journals, thereby strengthening both my academic track record and contributions to the field. Furthermore, I participated in the national student olympiad organized by the Ministry of Education, Culture, Research, and Technology, where I enhanced my analytical thinking and problem-solving abilities."
     }
   ];
 
   // Experience data
   const experience = [
     {
-      position: "Senior Full Stack Developer",
-      company: "TechCorp Solutions",
-      period: "2021 - Present",
-      description: "Lead development of enterprise web applications using React, Node.js, and AWS. Mentor junior developers and architect scalable solutions."
+      position: "IT Support Specialist",
+      company: "SDIT AL HAROMAIN",
+      period: "2022 - 2024",
+      description: "I successfully managed an IT infrastructure migration project that improved system performance by 40%. Additionally, I installed and configured virtualization technology, which increased server utilization by 30%. By implementing new internal IT support processes, I reduced overall downtime by 30%. Furthermore, I handled regular hardware updates, leading to a 15% reduction in hardware failures."
     },
     {
-      position: "Full Stack Developer",
-      company: "StartupXYZ",
+      position: "Coordinator of the Secretariat Division",
+      company: "Student Association of the Mathematics Education Study Program (HIMATIKA) Madura University ",
+      period: "2020 - 2022",
+      description: "By introducing an automated document management system, I improved the efficiency of mathematics olympiad administration processes by 60%. Additionally, I developed and implemented an efficient participant registration archiving system, which reduced document retrieval time by 75%. To further enhance organizational productivity, I conducted internal training sessions aimed at improving the administrative skills of team members, resulting in a 65% increase in overall productivity."
+    },
+    {
+      position: "Administration Staff",
+      company: "Office of the Village Head of Tlonto Raja",
       period: "2020 - 2021",
-      description: "Developed and maintained multiple client projects using modern web technologies. Improved application performance by 40%."
-    },
-    {
-      position: "Frontend Developer",
-      company: "Digital Agency Inc",
-      period: "2018 - 2020",
-      description: "Created responsive web applications and collaborated with design teams to implement pixel-perfect UI/UX designs."
-    },
-    {
-      position: "Junior Developer Intern",
-      company: "Local Web Studio",
-      period: "2017 - 2018",
-      description: "Assisted in development of small business websites and learned industry best practices."
+      description: "I supported daily administrative activities, including filing, data management, and report preparation, while efficiently handling both internal and external communications by answering phone calls and responding to emails. Additionally, I managed agendas and meeting schedules using Google Calendar, which contributed to a 45% increase in meeting attendance."
     }
   ];
 
@@ -65,28 +70,24 @@ const ResumeSection = () => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
 
-      // Initialize elements on first run
       if (animationElements.current.length === 0) {
         animationElements.current = Array.from(
           sectionRef.current.querySelectorAll('[data-animate]')
         ) as HTMLElement[];
         
-        // Set initial hidden state
         animationElements.current.forEach(el => {
           el.classList.add('opacity-0');
         });
       }
 
       const viewportHeight = window.innerHeight;
-      const triggerPoint = viewportHeight * 0.1; // 10% buffer
+      const triggerPoint = viewportHeight * 0.1;
       const sectionRect = sectionRef.current.getBoundingClientRect();
 
-      // Check if section is entering viewport
       const isSectionVisible = 
         sectionRect.top < viewportHeight - triggerPoint && 
         sectionRect.bottom > triggerPoint;
 
-      // Only trigger if section is visible and hasn't animated yet
       if (isSectionVisible && !hasAnimated.current) {
         animationElements.current.forEach((el, index) => {
           setTimeout(() => {
@@ -96,7 +97,6 @@ const ResumeSection = () => {
         });
         hasAnimated.current = true;
       } 
-      // Reset when section completely leaves viewport
       else if (sectionRect.bottom < 0 || sectionRect.top > viewportHeight) {
         hasAnimated.current = false;
         animationElements.current.forEach(el => {
@@ -106,24 +106,47 @@ const ResumeSection = () => {
       }
     };
 
-    // Add scroll listener with debounce
     const debouncedScroll = debounce(handleScroll, 50);
     window.addEventListener('scroll', debouncedScroll);
-    
-    // Trigger initial check
     handleScroll();
     
     return () => window.removeEventListener('scroll', debouncedScroll);
   }, []);
 
-  // TimelineItem component
+  const TruncatedText = ({ text, id, maxWords = 50 }: { 
+    text: string; 
+    id: string;
+    maxWords?: number;
+  }) => {
+    const words = text.split(' ');
+    const isExpanded = expandedItems[id] || false;
+    const shouldTruncate = words.length > maxWords && !isExpanded;
+    
+    const displayText = shouldTruncate 
+      ? words.slice(0, maxWords).join(' ') + '...'
+      : text;
+
+    return (
+      <p className="text-gray-700">
+        {displayText}
+        {words.length > maxWords && (
+          <button 
+            onClick={() => toggleExpand(id)}
+            className="text-blue-600 hover:underline ml-1 focus:outline-none"
+          >
+            {isExpanded ? 'Show Less' : 'Read More'}
+          </button>
+        )}
+      </p>
+    );
+  };
+
   const TimelineItem = ({ item, icon: Icon, isLast }: {
     item: any;
     icon: React.ComponentType<{ className?: string }>;
     isLast: boolean;
   }) => (
     <div className="relative">
-      {/* Garis vertikal - dipindahkan ke atas dan ditambahkan z-index */}
       {!isLast && (
         <div 
           className="absolute left-5 top-10 w-0.5 h-full bg-black -z-10" 
@@ -150,7 +173,11 @@ const ResumeSection = () => {
         </div>
       </div>
       <div className="ml-14 pb-8" data-animate>
-        <p className="text-gray-700">{item.description}</p>
+        {item.id ? (
+          <TruncatedText text={item.description} id={item.id} />
+        ) : (
+          <p className="text-gray-700">{item.description}</p>
+        )}
       </div>
     </div>
   );
@@ -167,7 +194,10 @@ const ResumeSection = () => {
             data-animate
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
           >
-            My Resume
+            My {" "}
+            <span className="bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent"
+            > Resume
+            </span>
           </h2>
           <div 
             data-animate
@@ -176,7 +206,6 @@ const ResumeSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Education Column */}
           <div>
             <h3 
               data-animate
@@ -197,7 +226,6 @@ const ResumeSection = () => {
             </div>
           </div>
 
-          {/* Experience Column */}
           <div>
             <h3 
               data-animate

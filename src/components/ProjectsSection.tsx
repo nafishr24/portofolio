@@ -94,25 +94,25 @@ const ProjectsSection = () => {
       id: 1,
       title: "Birthday Card",
       image: "images/hbd.png",
-      description: "A full-featured e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, payment integration, inventory management, and responsive design.",
-      technologies: ["HTML5", "CSS", "JavaScript"],
+      description: "A simple digital birthday card created using HTML, CSS, and JavaScript. Features include animated greetings, colorful design, and a festive user experience..",
+      technologies: ["HTML5", "CSS", "JavaScript","LaTex"],
       category: "Web Development"
     },
     {
       id: 2,
-      title: "Task Management App",
-      image: "images/hbd.png",
-      description: "A collaborative task management application similar to Trello. Built with Vue.js and Firebase, it features real-time updates, drag-and-drop functionality, and team collaboration tools.",
-      technologies: ["Vue.js", "Firebase", "Vuex", "CSS3", "JavaScript"],
-      category: "Web Development"
+      title: "Flight Analytics",
+      image: "images/ds1.png",
+      description: "This project predicts ticket types for airlines, including economy, premium economy, business, and first class, using machine learning to improve ticket classification and enhance the booking experience.",
+      technologies: ["Python", "Scikit Learn", "Seaborn"],
+      category: "Data Science"
     },
     {
       id: 3,
-      title: "Weather Dashboard",
-      image: "images/hbd.png",
-      description: "A weather dashboard that provides detailed weather information and forecasts. Built with React and integrates with multiple weather APIs.",
-      technologies: ["React", "API Integration", "Chart.js", "Geolocation"],
-      category: "Web Development"
+      title: "Obesity Prediction",
+      image: "images/ds2.png",
+      description: "This project aims to analyze and classify a person's obesity level based on various health and lifestyle factors. Using a dataset with features such as weight, height, eating habits, exercise routines, and more, this project applies exploratory data analysis (EDA) and several machine learning algorithms to gain deeper insights into obesity.",
+      technologies: ["Python", "Scikit Learn", "Seaborn"],
+      category: "Data Science"
     },
     {
       id: 4,
@@ -174,7 +174,11 @@ const ProjectsSection = () => {
             data-animate
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
           >
-            My Projects
+            My {" "}
+            <span 
+              className="bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent"
+            > Projects
+            </span>
           </h2>
           <div 
             data-animate

@@ -59,12 +59,14 @@ const Navbar = () => {
   ];
 
   const getNavItemClass = (sectionId: string) => {
-      const isActive = activeSection === sectionId;
-      return `relative px-2 py-1 text-gray-700 hover:text-blue-600 transition-colors font-medium
-        ${isActive ? 'text-blue-700 font-semibold after:content-[""] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-blue-700' : ''}
-      `;
-};
-
+    const isActive = activeSection === sectionId;
+    return `relative px-2 py-1 transition-colors font-medium
+      ${isActive 
+        ? 'text-blue-600 font-semibold after:content-[""] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-blue-700'
+        : 'text-gray-700 hover:text-blue-600'
+      }
+    `;
+  };
 
   const getMobileNavItemClass = (sectionId: string) => {
     return `block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors ${
