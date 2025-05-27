@@ -121,7 +121,7 @@ const HomeSection = () => {
                 data-animate
                 className="text-lg text-gray-700 leading-relaxed"
               >
-                Welcome to my portfolio! Empowering learning through mathematics, building solutions through code, and uncovering insights through data.
+                Selamat datang di portofolio saya! Saya berkomitmen untuk menciptakan solusi cerdas melalui pemrograman dan menggali wawasan berharga dari data — siap berkontribusi nyata untuk mendukung pertumbuhan dan inovasi di perusahaan Anda.
               </p>
 
               {/* Expandable Content */}
@@ -133,7 +133,7 @@ const HomeSection = () => {
               >
                 <div className="space-y-4 pt-4">
                   <p className="text-gray-700">
-                    With years of experience in teaching mathematics, I've helped students not only improve their academic performance but also build confidence in logical thinking and problem-solving. As a web developer, I design and build clean, responsive, and user-friendly web applications tailored to real-world needs — from small business websites to dynamic, data-driven platforms. As a data scientist, I transform raw data into meaningful insights through statistical analysis, machine learning, and data visualization — enabling smarter decisions and impactful results. My work is driven by curiosity, creativity, and a strong desire to bridge the gap between technology and human understanding.
+                    Dengan latar belakang kuat di dunia data dan pemrograman, saya terbiasa membangun solusi digital yang efisien dan berbasis kebutuhan nyata. Sebagai web developer, saya merancang aplikasi yang responsif, bersih, dan mudah digunakan. Di sisi lain, sebagai data enthusiast, saya mengolah data mentah menjadi wawasan yang bernilai melalui analisis, visualisasi, dan machine learning — membantu mendukung pengambilan keputusan yang lebih cerdas. Setiap proyek saya dilandasi rasa ingin tahu, ketelitian, dan keinginan untuk menciptakan dampak nyata melalui teknologi.
                   </p>
                 </div>
               </div>

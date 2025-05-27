@@ -12,10 +12,10 @@ function debounce(func: (...args: any[]) => void, wait: number) {
 
 const AboutSection = () => {
   const skills = [
-    { icon: Code, title: 'Development', desc: 'Full-stack web development with modern technologies' },
-    { icon: Palette, title: 'Design', desc: 'Creating beautiful and intuitive user interfaces' },
-    { icon: Rocket, title: 'Innovation', desc: 'Always exploring new technologies and solutions' },
-    { icon: Heart, title: 'Passion', desc: 'Dedicated to creating meaningful digital experiences' },
+    { icon: Code, title: 'Development', desc: 'Membangun Aplikasi Web Full-Stack dengan Teknologi Terkini' },
+    { icon: Palette, title: 'Design', desc: 'Merancang UI yang Menawan dan Mudah Digunakan' },
+    { icon: Rocket, title: 'Innovation', desc: 'Rutin Mengeksplorasi Teknologi dan Cara Baru untuk Memecahkan Masalah' },
+    { icon: Heart, title: 'Passion', desc: 'Berfokus pada Penciptaan Pengalaman Digital yang Penuh Makna' },
   ];
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -104,12 +104,12 @@ const AboutSection = () => {
               data-animate
               className="text-2xl font-semibold text-gray-900 mb-6"
             >
-              Crafting Digital Experiences with Purpose
+              Menciptakan Pengalaman Digital yang Bermakna
             </h3>
             <div className="space-y-4 text-gray-700 leading-relaxed">
               {[
-                "I graduated with a Bachelor's degree in Mathematics Education from Universitas Madua. After completing my undergraduate studies, I continued my academic journey at Widya Mandala Catholic University Surabaya.During my time at university, I was actively involved in various student organizations. I served as the head of a committee for a work program, helped prepare essential documents for study program accreditation, and worked as the coordinator of the secretariat division, where I was responsible for handling administrative and organizational data.",
-                "These experiences sparked my interest in data analysis and data science, as I became more engaged in managing and interpreting data in meaningful ways. Alongside my academic background in mathematics, I have also been involved in several web development projects, both individually and as part of a team. This journey has fueled my passion for coding and building digital solutions. Today, I work as a math tutor, web developer, and data scientist, driven by a passion for continuous learning and a desire to make an impact through education, technology, and data."
+                "Saya lulus dengan gelar Sarjana Pendidikan Matematika dari Universitas Madua. Setelah menyelesaikan studi sarjana, saya melanjutkan perjalanan akademik saya di Universitas Katolik Widya Mandala Surabaya. Selama masa kuliah, saya aktif terlibat dalam berbagai organisasi kemahasiswaan. Saya pernah dipercaya sebagai ketua panitia dalam sebuah program kerja, membantu menyusun dokumen penting untuk akreditasi program studi, serta menjabat sebagai koordinator divisi kesekretariatan yang bertanggung jawab atas pengelolaan data administratif dan organisasi.",
+                "Pengalaman-pengalaman tersebut menumbuhkan ketertarikan saya pada analisis data dan data science, seiring dengan keterlibatan saya dalam mengelola dan menginterpretasikan data secara bermakna. Didukung oleh latar belakang akademik di bidang matematika, saya juga telah terlibat dalam berbagai proyek pengembangan web, baik secara individu maupun dalam tim. Perjalanan ini semakin memperkuat semangat saya dalam dunia pemrograman dan membangun solusi digital. Saat ini, saya aktif sebagai tutor matematika, web developer, dan data scientist — didorong oleh semangat belajar tanpa henti dan keinginan untuk memberikan dampak melalui pendidikan, teknologi, dan data."
               ].map((text, index) => (
                 <p 
                   key={index} 

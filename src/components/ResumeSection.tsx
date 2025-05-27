@@ -24,39 +24,39 @@ const ResumeSection = () => {
   const education = [
     {
       id: "edu-1",
-      degree: "Pre-service Teacher Education (PPG Prajabatan) Program",
-      school: "Widya Mandala Surabaya Catholic University",
-      period: "Januari 2024 - December 2024",
-      description: "I have actively coordinated the implementation of a community service program at SMP Kristen YBPK 4 Surabaya, focusing on empowering the educational community. In addition, I successfully led a team in organizing the Gelar Karya event at Widya Mandala Catholic University Surabaya, overseeing all aspects from strategic planning to execution. Collaborating with mathematics teachers at SMPN 37 Surabaya, I conducted research on computational thinking and developed effective strategies to enhance students' skills in this area. Furthermore, I have authored and published three scientific papers in nationally accredited journals, contributing to the advancement of knowledge and educational practices."
+      degree: "Pendidikan Profesi Guru (PPG) Pra-Jabatan",
+      school: "Universitas Katolik Widya Mandala Surabaya",
+      period: "Januari 2024 - Desember 2024",
+      description: "Saya berhasil memimpin koordinasi program pengabdian kepada masyarakat yang dilaksanakan di SMP Kristen YBPK 4 Surabaya dengan fokus utama pada pemberdayaan komunitas pendidikan secara menyeluruh. Selain itu, saya sukses memimpin tim dalam menyelenggarakan acara Gelar Karya di Universitas Katolik Widya Mandala Surabaya, mulai dari perencanaan strategis hingga pelaksanaan, memastikan setiap tahap berjalan dengan lancar dan berdampak. Dalam kolaborasi dengan guru matematika SMPN 37 Surabaya, saya melakukan penelitian mendalam mengenai computational thinking serta merancang strategi inovatif untuk meningkatkan kemampuan siswa dalam bidang tersebut. Lebih dari itu, saya telah berhasil menulis dan menerbitkan tiga artikel ilmiah di jurnal nasional terakreditasi, memberikan kontribusi nyata terhadap pengembangan ilmu pengetahuan dan praktik pendidikan yang berkualitas."
     },
     {
       id: "edu-2",
-      degree: "Bachelor of Mathematics Education",
-      school: "Madura University",
-      period: "SEPTEMBER 2019 – AUGUST 2023",
-      description: "During my academic journey, I actively participated in a student organization, contributing to the planning and execution of strategic work programs. I developed an automation system for the Madura Mathematics Olympiad, streamlining processes from registration to assessment and significantly improving time efficiency. To ensure the system's effective utilization, I conducted training sessions for student organization members, which resulted in a 60% increase in their technical skills. Additionally, I contributed to the preparation of accreditation documents for the study program, which successfully achieved a 'Very Good' accreditation status. My commitment to academic excellence is also reflected in my authorship and publication of research findings in nationally accredited journals, thereby strengthening both my academic track record and contributions to the field. Furthermore, I participated in the national student olympiad organized by the Ministry of Education, Culture, Research, and Technology, where I enhanced my analytical thinking and problem-solving abilities."
+      degree: "Sarjana Pendidikan Matematika",
+      school: "Universitas Madura",
+      period: "SEPTEMBER 2019 – Agustus 2023",
+      description: "Selama menempuh pendidikan, saya aktif berperan dalam organisasi kemahasiswaan dengan turut merancang dan melaksanakan program kerja strategis. Salah satu pencapaian penting saya adalah mengembangkan sistem otomatisasi untuk Olimpiade Matematika Madura, yang berhasil mengoptimalkan proses mulai dari pendaftaran hingga penilaian, sehingga efisiensi waktu meningkat secara signifikan. Untuk memastikan pemanfaatan sistem berjalan maksimal, saya memimpin pelatihan bagi anggota organisasi, yang menghasilkan peningkatan kemampuan teknis hingga 60%. Saya juga berkontribusi dalam penyusunan dokumen akreditasi program studi yang berhasil memperoleh status akreditasi ‘Baik Sekali’. Komitmen saya terhadap keunggulan akademik terbukti lewat penulisan dan publikasi karya ilmiah di jurnal nasional terakreditasi, yang memperkuat kontribusi saya terhadap perkembangan ilmu pengetahuan. Selain itu, saya berpartisipasi dalam Olimpiade Mahasiswa Nasional yang diselenggarakan oleh Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi, yang semakin mengasah kemampuan analitis dan pemecahan masalah saya secara signifikan."
     }
   ];
 
   // Experience data
   const experience = [
     {
-      position: "IT Support Specialist",
+      position: "IT Support",
       company: "SDIT AL HAROMAIN",
       period: "2022 - 2024",
-      description: "I successfully managed an IT infrastructure migration project that improved system performance by 40%. Additionally, I installed and configured virtualization technology, which increased server utilization by 30%. By implementing new internal IT support processes, I reduced overall downtime by 30%. Furthermore, I handled regular hardware updates, leading to a 15% reduction in hardware failures."
+      description: "Saya berhasil mengelola proyek migrasi infrastruktur IT yang meningkatkan kinerja sistem sebesar 40%. Selain itu, saya memasang dan mengonfigurasi teknologi virtualisasi yang meningkatkan pemanfaatan server hingga 30%. Dengan menerapkan proses dukungan IT internal yang baru, saya berhasil mengurangi waktu downtime secara keseluruhan sebesar 30%. Selain itu, saya juga menangani pembaruan perangkat keras secara rutin, yang berdampak pada penurunan kegagalan hardware sebesar 15%."
     },
     {
-      position: "Coordinator of the Secretariat Division",
-      company: "Student Association of the Mathematics Education Study Program (HIMATIKA) Madura University ",
+      position: "Kordinator Divisi Kesekretariatan",
+      company: "Himpunan Mahasiswa Prodi Pendidikan Matematika (HIMATIKA) Universitas Madura",
       period: "2020 - 2022",
-      description: "By introducing an automated document management system, I improved the efficiency of mathematics olympiad administration processes by 60%. Additionally, I developed and implemented an efficient participant registration archiving system, which reduced document retrieval time by 75%. To further enhance organizational productivity, I conducted internal training sessions aimed at improving the administrative skills of team members, resulting in a 65% increase in overall productivity."
+      description: "Dengan memperkenalkan sistem manajemen dokumen otomatis, saya meningkatkan efisiensi proses administrasi olimpiade matematika sebesar 60%. Selain itu, saya mengembangkan dan mengimplementasikan sistem pengarsipan pendaftaran peserta yang efisien, sehingga mengurangi waktu pencarian dokumen hingga 75%. Untuk lebih meningkatkan produktivitas organisasi, saya mengadakan pelatihan internal yang bertujuan meningkatkan keterampilan administrasi anggota tim, yang menghasilkan peningkatan produktivitas keseluruhan sebesar 65%."
     },
     {
-      position: "Administration Staff",
-      company: "Office of the Village Head of Tlonto Raja",
+      position: "Staf Administrasi",
+      company: "Kantor Kepada Desa Tlontoraja Pamekasan",
       period: "2020 - 2021",
-      description: "I supported daily administrative activities, including filing, data management, and report preparation, while efficiently handling both internal and external communications by answering phone calls and responding to emails. Additionally, I managed agendas and meeting schedules using Google Calendar, which contributed to a 45% increase in meeting attendance."
+      description: "Saya bertanggung jawab atas aktivitas administrasi harian, termasuk pengarsipan, pengelolaan data, dan penyusunan laporan, serta mengelola komunikasi internal dan eksternal secara efektif melalui penanganan telepon dan email. Selain itu, saya mengatur agenda dan jadwal rapat menggunakan Google Calendar, yang berhasil meningkatkan kehadiran rapat hingga 45%."
     }
   ];
 
@@ -106,7 +106,7 @@ const ResumeSection = () => {
       }
     };
 
-    const debouncedScroll = debounce(handleScroll, 50);
+    const debouncedScroll = debounce(handleScroll, 70);
     window.addEventListener('scroll', debouncedScroll);
     handleScroll();
     
@@ -173,11 +173,16 @@ const ResumeSection = () => {
         </div>
       </div>
       <div className="ml-14 pb-8" data-animate>
-        {item.id ? (
-          <TruncatedText text={item.description} id={item.id} />
-        ) : (
-          <p className="text-gray-700">{item.description}</p>
-        )}
+          {item.id ? (
+            <TruncatedText 
+              text={item.description} 
+              id={item.id} 
+              maxWords={item.position ? 25 : 58} // 25 kata untuk experience, 58 untuk education
+            />
+          ) : (
+            <p className="text-gray-700">{item.description}</p>
+          )}
+
       </div>
     </div>
   );
@@ -236,12 +241,12 @@ const ResumeSection = () => {
             </h3>
             <div className="space-y-8">
               {experience.map((exp, index) => (
-                <TimelineItem
-                  key={`exp-${index}`}
-                  item={exp}
-                  icon={Briefcase}
-                  isLast={index === experience.length - 1}
-                />
+                  <TimelineItem
+                    key={`exp-${index}`}
+                    item={{ ...exp, id: `exp-${index}` }} // tambahkan id untuk kontrol TruncatedText
+                    icon={Briefcase}
+                    isLast={index === experience.length - 1}
+                  />
               ))}
             </div>
           </div>
