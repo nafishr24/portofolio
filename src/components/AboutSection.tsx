@@ -82,7 +82,7 @@ const AboutSection = () => {
     <section 
       id="about" 
       ref={sectionRef}
-      className="py-20 bg-gray-50 backdrop-blur-sm scroll-mt-16"
+      className="overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-20 bg-gray-50 backdrop-blur-sm scroll-mt-16"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">

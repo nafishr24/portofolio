@@ -127,7 +127,7 @@ export default {
         // Staggered Animations
         'stagger-fade-up': 'staggerFadeUp 0.6s ease-out forwards',
         'stagger-fade-right': 'staggerFadeRight 0.6s ease-out forwards',
-		'staggerRight': 'staggerRight 0.5s ease-out forwards',
+		    'staggerRight': 'staggerRight 0.5s ease-out forwards',
         
         // Accordion Animations
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -142,5 +142,7 @@ export default {
       }
     }
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+plugins: [
+    require("tailwindcss-animate")
+  ]
+} satisfies Config

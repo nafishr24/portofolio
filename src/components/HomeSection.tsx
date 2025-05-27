@@ -78,7 +78,7 @@ const HomeSection = () => {
     <section 
       id="home" 
       ref={sectionRef}
-      className="min-h-screen flex items-center pt-16 scroll-mt-16"
+      className="min-h-screen flex items-center pt-16 scroll-mt-16 bg-[#e7f4fe]"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">

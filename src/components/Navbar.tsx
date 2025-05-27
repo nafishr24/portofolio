@@ -55,7 +55,7 @@ const Navbar = () => {
     { name: 'Email', icon: Mail, href: 'mailto:nafishusenromadani@gmail.com', color: 'hover:text-blue-500' },
     { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/in/nafishusen24/', color: 'hover:text-blue-600' },
     { name: 'GitHub', icon: Github, href: 'https://github.com/nafishr24/', color: 'hover:text-gray-800' },
-    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com/yourchannel', color: 'hover:text-red-500' }, // Added YouTube
+    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com/@nafishusenr24', color: 'hover:text-red-500' }, // Added YouTube
   ];
 
   const getNavItemClass = (sectionId: string) => {
